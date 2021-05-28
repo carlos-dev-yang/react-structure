@@ -1,4 +1,5 @@
 {
+  "extends": "./tsconfig.path.json",
   "compilerOptions": {
     "target": "es5",
     "lib": [
@@ -20,7 +21,15 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
+  "rules": {
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "off"
+  },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.test.tsx"
   ]
 }
