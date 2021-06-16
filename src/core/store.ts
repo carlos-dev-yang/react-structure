@@ -3,8 +3,11 @@ import { ThunkAction } from 'redux-thunk';
 import { useDispatch } from 'react-redux';
 
 import { combineReducers } from '@reduxjs/toolkit';
+import { userReducer } from '@features/user';
 
-export const rootReducer = combineReducers({});
+export const rootReducer = combineReducers({
+  userReducer,
+});
 
 export type IRootState = ReturnType<typeof rootReducer>;
 

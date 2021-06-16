@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import css from '@emotion/css';
 import styled from '@emotion/styled';
@@ -10,10 +10,9 @@ export interface IButtonProps {
   onClick: (any: any) => any;
   buttonTheme: ButtonTheme;
   size: ButtonSize;
-  children?: ReactNode;
+  children: ReactNode;
   disabled?: boolean;
   type?: 'imgIcon' | 'svgIcon';
-  isSelected?: boolean;
 }
 
 // theme size 외에 option의 필요성 고민, 각 element 별로 필요한 옵션 요소들이 있음.
