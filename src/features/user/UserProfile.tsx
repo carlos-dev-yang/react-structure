@@ -1,22 +1,42 @@
 import React from 'react';
 import { useUserData } from '@hooks/useUserData';
-import { IUserProfile } from './types';
 import { Button } from '@components/button';
+import { Input } from '@components/input';
+import { useUserProfileReducer } from './useUserProfileReducer';
 
 export function UserProfile(): React.ReactElement {
   const { userProfile, setUserProfile } = useUserData();
 
-  const handleUserProfile = () => {
-    const changeUserProfile: IUserProfile = {
-      profile: 'src',
-    };
-    setUserProfile(changeUserProfile);
+  const { userProfileForm, handleUserProfile, handleUserProfileReset } = useUserProfileReducer();
+
+  const { profile } = userProfileForm;
+
+  React.useEffect(() => {
+    handleOriginalData();
+  }, [userProfile]);
+
+  const handleOriginalData = React.useCallback(() => {
+    handleUserProfileReset(userProfile);
+  }, [userProfile]);
+
+  const handleInfoSave = () => {
+    setUserProfile(userProfile);
   };
+
+  const profileId = 'userProfile';
 
   return (
     <div>
-      <span>{userProfile}</span>
-      <Button onClick={handleUserProfile}>프로필 저장</Button>
+      <div>
+        <div>
+          <label htmlFor={profileId}>프로필</label>
+          <Input id={profileId} value={profile} onChange={handleUserProfile} />
+        </div>
+      </div>
+      <div>
+        <Button onClick={handleInfoSave}>저장</Button>
+        <Button onClick={handleOriginalData}>초기화</Button>
+      </div>
     </div>
   );
 }

@@ -1,8 +1,8 @@
 export interface IUserProps {
   name: string;
-  age: number;
+  age: number | undefined;
   address: string;
-  profile: string | null;
+  profile: string | undefined;
 }
 
 const profileInfo = 'profile';

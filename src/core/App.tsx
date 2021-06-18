@@ -1,12 +1,16 @@
-import { Button } from '@components/button/Button';
 import React from 'react';
+import Redux from 'react-redux';
 
-function App(): JSX.Element {
+import store from './store';
+import Routes from '@src/routes/Routes';
+
+function App(): React.ReactElement {
   return (
-    <div className="App">
-      <header className="App-header">Learn React</header>
-      <Button onClick={() => console.log('click button')}>testButton</Button>
-    </div>
+    <Redux.Provider store={store}>
+      <div className="App">
+        <Routes />
+      </div>
+    </Redux.Provider>
   );
 }
 

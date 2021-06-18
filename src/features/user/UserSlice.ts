@@ -2,7 +2,7 @@ import React from 'react';
 import { createSlice, PayloadAction, createEntityAdapter, createSelector } from '@reduxjs/toolkit';
 
 import { IRootState } from '@src/core/store';
-import { IUserProps } from './types';
+import { IUserProps, IUserInfo, IUserProfile } from './types';
 
 const sliceName = 'userSlice';
 
@@ -10,7 +10,7 @@ const initialState: IUserProps = {
   name: 'james',
   address: 'seoul',
   age: 38,
-  profile: null,
+  profile: undefined,
 };
 
 // 빈 엔티티 어뎁터를 생성
@@ -20,31 +20,36 @@ const userSlice = createSlice({
   initialState, // adapter에 초기값을 세팅한다.
   reducers: {
     // 외부에서 사용할 action을 선언한다.
-    setUserInfo(state, action: PayloadAction<Omit<IUserProps, 'profile'>>) {
+    setUserInfo(state, action: PayloadAction<Omit<IUserInfo, 'profile'>>) {
       const { name, address, age } = action.payload;
       state.name = name;
       state.address = address;
       state.age = age;
     },
-    setUserProfile(state, action: PayloadAction<Pick<IUserProps, 'profile'>>) {
+    setUserProfile(state, action: PayloadAction<Pick<IUserProfile, 'profile'>>) {
       const { profile } = action.payload;
       state.profile = profile;
+    },
+    resetUserData(state) {
+      state = initialState;
     },
   },
 });
 
-const userDataSelector = (state: IRootState) => state.userReducer;
+const selectAllUser = (state: IRootState) => state.userReducer;
 
-const selectUserProfile = (userReducer: IUserProps) => userReducer.profile;
+const selectUserProfile = ({ profile }: IUserProps) => {
+  return { profile };
+};
 
-const selectUserInfo = (userReducer: IUserProps) => {
-  const { name, address, age } = userReducer;
+const selectUserInfo = ({ name, address, age }: IUserProps) => {
   return { name, address, age };
 };
 
-const getUserProfile = createSelector(userDataSelector, selectUserProfile);
+const getUserProfile = createSelector(selectAllUser, selectUserProfile);
+const getUserInfo = createSelector(selectAllUser, selectUserInfo);
 
 export const userAction = userSlice.actions; // slice action을 내보낸다.
 export const userReducer = userSlice.reducer; // slice reduce를 내보낸다.
 
-export const userSelector = { selectUserProfile, selectUserInfo };
+export const userSelector = { selectAllUser, getUserProfile, getUserInfo };
