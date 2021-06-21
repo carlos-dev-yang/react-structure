@@ -1,5 +1,4 @@
-import React from 'react';
-import { createSlice, PayloadAction, createEntityAdapter, createSelector } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
 
 import { IRootState } from '@src/core/store';
 import { IUserProps, IUserInfo, IUserProfile } from './types';
@@ -20,13 +19,13 @@ const userSlice = createSlice({
   initialState, // adapter에 초기값을 세팅한다.
   reducers: {
     // 외부에서 사용할 action을 선언한다.
-    setUserInfo(state, action: PayloadAction<Omit<IUserInfo, 'profile'>>) {
+    setUserInfo(state, action: PayloadAction<IUserInfo>) {
       const { name, address, age } = action.payload;
       state.name = name;
       state.address = address;
       state.age = age;
     },
-    setUserProfile(state, action: PayloadAction<Pick<IUserProfile, 'profile'>>) {
+    setUserProfile(state, action: PayloadAction<IUserProfile>) {
       const { profile } = action.payload;
       state.profile = profile;
     },
@@ -36,13 +35,13 @@ const userSlice = createSlice({
   },
 });
 
-const selectAllUser = (state: IRootState) => state.userReducer;
+const selectAllUser = (state: IRootState): IUserProps => state.userReducer;
 
-const selectUserProfile = ({ profile }: IUserProps) => {
+const selectUserProfile = ({ profile }: IUserProfile) => {
   return { profile };
 };
 
-const selectUserInfo = ({ name, address, age }: IUserProps) => {
+const selectUserInfo = ({ name, address, age }: IUserInfo) => {
   return { name, address, age };
 };
 
