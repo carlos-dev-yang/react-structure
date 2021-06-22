@@ -12,7 +12,7 @@ export function UserInfo(): React.ReactElement {
     handleUserName,
     handleUserAge,
     handleUserAddress,
-    handleUserDataReset,
+    handleUserInfoReset,
   } = useUserInfoReducer();
 
   const { name, address, age } = userInfoForm;
@@ -22,7 +22,7 @@ export function UserInfo(): React.ReactElement {
   }, [userInfo]);
 
   const handleOriginalData = React.useCallback(() => {
-    handleUserDataReset(userInfo);
+    handleUserInfoReset(userInfo);
   }, [userInfo]);
 
   const handleInfoSave = () => {

@@ -13,7 +13,7 @@ export function APITester(): React.ReactElement {
 }
 
 function APIExample() {
-  const { isLoading, error, data } = useQuery('repoData', async () =>
+  const { isLoading, error, data } = useQuery('repoData', () =>
     fetch(`https://api.github.com/repos/tannerlinsley/react-query`).then((res) => res.json()),
   );
   if (isLoading) return <div>{'...loading'}</div>;

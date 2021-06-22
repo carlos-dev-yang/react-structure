@@ -1,5 +1,6 @@
 import * as data from './CRUDData.mock';
 import * as userService from './CRUDService.mock';
+import { IUserTypes } from '@src/mock/types';
 
 describe('async pattern', () => {
   beforeEach(() => {
@@ -24,7 +25,7 @@ describe('async pattern', () => {
   });
 
   it('create user', () => {
-    const newUser = { id: 4, email: 'user4@test.com' };
+    const newUser: IUserTypes = { id: 4, email: 'user4@test.com' };
     const userLength = data.users.length;
 
     userService.create(newUser);

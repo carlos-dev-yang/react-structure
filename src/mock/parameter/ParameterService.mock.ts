@@ -4,7 +4,7 @@ export type anagramOptions = {
 };
 
 export const areAnagrams = (first: string, second: string, options?: anagramOptions): boolean => {
-  const counter = {};
+  const counter: any = {};
 
   if (options?.ignoreSpaces) {
     first = first.replace(/ /gi, '');
@@ -16,8 +16,8 @@ export const areAnagrams = (first: string, second: string, options?: anagramOpti
     second = second.toLowerCase();
   }
 
-  [...first].forEach((text) => (counter[text] = (counter[text] || 0) + 1));
-  [...second].forEach((text) => (counter[text] = (counter[text] || 0) - 1));
+  first.split('').forEach((text) => (counter[text] = (counter[text] || 0) + 1));
+  second.split('').forEach((text) => (counter[text] = (counter[text] || 0) - 1));
 
   return Object.values(counter).every((cnt) => cnt === 0);
 };
