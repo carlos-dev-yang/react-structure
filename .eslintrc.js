@@ -7,6 +7,7 @@ module.exports = {
     'prettier',
     'plugin:prettier/recommended',
     'react-app',
+    'plugin:cypress/recommended',
   ],
   env: {
     browser: true,
